@@ -9,7 +9,7 @@ export const punchInService = async (userId) => {
         const date = new Date().toISOString().split('T')[0];
         const punchDetail = await userPunchInDetailRepository(date, userId);
 
-        if (punchDetail.punchOut) {
+        if (punchDetail && punchDetail.punchOut) {
             throw {
                 err: 'User has already punched-out',
                 code: status_code.UNPROCESSABLE_ENTITY

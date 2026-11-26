@@ -33,11 +33,7 @@ const User = sequelize.define(
         mobileNumber: {
             type: DataTypes.STRING(10),
             allowNull: false,
-
-            unique: {
-                name: 'unique_mobile_number',
-                msg: 'This mobile number is already registered.'
-            },
+            unique: true,
 
             validate: {
                 notNull: {
@@ -93,7 +89,7 @@ const User = sequelize.define(
         hooks: {
             beforeCreate: async (user) => {
                 if (user.password) {
-                    const salt = await bcrypt.genSalt(10)
+                    const salt = await bcrypt.genSalt(10);
                     user.password = await bcrypt.hash(user.password, salt);
                 };
             },
